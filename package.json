@@ -11,8 +11,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "build": "webpack -d --watch"
+    "start": "node server.js",
+    "react-build": "webpack -d --watch"
+  },
+  "engine": {
+    "node": "10.15.3"
   },
   "author": "",
   "license": "ISC",
