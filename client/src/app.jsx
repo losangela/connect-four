@@ -55,27 +55,6 @@ class App extends React.Component {
     for (let i = 0; i < 6; i++) {
       let horizontal = horizontalArray(i);
       this.checkFour(horizontal);
-      // let streak = '';
-      // let streakNum = 0;
-      // horizontal.forEach(circle => {
-      //   if (!circle) {
-      //     streak = '';
-      //     streakNum = 0;
-      //   }
-      //   if (circle && streak === "") {
-      //     streak = circle;
-      //     streakNum = 1;
-      //   } else if (circle && circle === streak) {
-      //     streakNum++;
-      //     if (streakNum === 4) {
-      //       this.setState({winner: circle})
-      //       return
-      //     }
-      //   } else if (circle && streak !== circle) {
-      //     streak = circle;
-      //     streakNum = 1;
-      //   }
-      // })
     }
   }
 
@@ -84,7 +63,6 @@ class App extends React.Component {
 
     for (let i = 0; i < 7; i++) {
       let vertical = this.state[columns[i]].slice().reverse()
-      // this.checkFour(vertical)
       let streak = '';
       let streakNum = 0;
 
@@ -182,14 +160,16 @@ class App extends React.Component {
   }
 
   resetBoard () {
-    this.setState({col1: [0, 0, 0, 0, 0, 0]})
-    this.setState({col2: [0, 0, 0, 0, 0, 0]})
-    this.setState({col3: [0, 0, 0, 0, 0, 0]})
-    this.setState({col4: [0, 0, 0, 0, 0, 0]})
-    this.setState({col5: [0, 0, 0, 0, 0, 0]})
-    this.setState({col6: [0, 0, 0, 0, 0, 0]})
-    this.setState({col7: [0, 0, 0, 0, 0, 0]})
-    this.setState({winner: null})
+    this.setState({
+      col1: [0, 0, 0, 0, 0, 0],
+      col2: [0, 0, 0, 0, 0, 0],
+      col3: [0, 0, 0, 0, 0, 0],
+      col4: [0, 0, 0, 0, 0, 0],
+      col5: [0, 0, 0, 0, 0, 0],
+      col6: [0, 0, 0, 0, 0, 0],
+      col7: [0, 0, 0, 0, 0, 0],
+      winner: null
+    })
   }
 
   changeValue(color) {
@@ -223,8 +203,10 @@ class App extends React.Component {
       let winnerKey = this.state.winner + 'W';
       let wins = this.state[winnerKey];
       wins++
-      this.setState({ addScore : false })
-      this.setState({ [winnerKey] : wins})
+      this.setState({
+        addScore : false
+        [winnerKey] : wins
+      })
     }
   }
 
