@@ -172,7 +172,8 @@ class App extends React.Component {
         col4: jsonEmpty,
         col5: jsonEmpty,
         col6: jsonEmpty,
-        col7: jsonEmpty
+        col7: jsonEmpty,
+        turn: 'R'
       }
     })
       .then(({data})=> this.setState({ 
@@ -217,15 +218,18 @@ class App extends React.Component {
       let index = newColumn.lastIndexOf(0);
       if (index !== -1) {
         newColumn[index] = this.state.turn;
+        let newTurn = this.state.turn === 'R' ? 'Y' : 'R'
+        
         axios.put('/api/game', { params: 
           {
             "gameID": 1,
-            [column]: JSON.stringify(newColumn)
+            [column]: JSON.stringify(newColumn),
+            turn: newTurn
           }
         })
-          .then(({data})=> this.setState({ [column] : newColumn }))
+          .then(({data})=> this.setState({ [column] : newColumn , turn: newTurn}))
           .catch(err => console.log(err))
-        this.chooseTurn()
+        // this.chooseTurn()
       }
     }
 
