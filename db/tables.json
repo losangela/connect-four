@@ -1,0 +1,19 @@
+{
+    "TableName": "game",
+    "KeySchema": [
+      {
+        "AttributeName": "gameID",
+        "KeyType": "HASH"
+      }
+    ],
+    "AttributeDefinitions": [
+      {
+        "AttributeName": "gameID",
+        "AttributeType": "N"
+      }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 5,
+      "WriteCapacityUnits": 5
+    }
+  }

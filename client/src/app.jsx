@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -160,16 +161,31 @@ class App extends React.Component {
   }
 
   resetBoard () {
-    this.setState({
-      col1: [0, 0, 0, 0, 0, 0],
-      col2: [0, 0, 0, 0, 0, 0],
-      col3: [0, 0, 0, 0, 0, 0],
-      col4: [0, 0, 0, 0, 0, 0],
-      col5: [0, 0, 0, 0, 0, 0],
-      col6: [0, 0, 0, 0, 0, 0],
-      col7: [0, 0, 0, 0, 0, 0],
-      winner: null
+    let empty = [0, 0, 0, 0, 0, 0];
+    let jsonEmpty = JSON.stringify(empty)
+    axios.put('/api/game', { params: 
+      {
+        "gameID": 1,
+        col1: jsonEmpty,
+        col2: jsonEmpty,
+        col3: jsonEmpty,
+        col4: jsonEmpty,
+        col5: jsonEmpty,
+        col6: jsonEmpty,
+        col7: jsonEmpty
+      }
     })
+      .then(({data})=> this.setState({ 
+        col1: empty,
+        col2: empty,
+        col3: empty,
+        col4: empty,
+        col5: empty,
+        col6: empty,
+        col7: empty,
+        winner: null
+     }))
+      .catch(err => console.log(err))
   }
 
   changeValue(color) {
@@ -177,7 +193,22 @@ class App extends React.Component {
     if (person === null || person === "") {
       person = color
     }
-    this.setState({[color[0]]: person.slice(0,12)})
+    let key = "name" + color[0];
+    let value = person.slice(0,12);
+    // this.setState({[color[0]]: person.slice(0,12)})
+    axios.put('/api/game', { params: 
+      {
+        "gameID": 1,
+        // "scoreR": 0,
+        // "scoreY": 0,
+        [key]: value
+        // "turn": "R",
+        // "board": "[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]"
+      
+      }
+    })
+      .then(({data})=> this.setState({ R: data.nameR, Y: data.nameY }))
+      .catch(err => console.log(err))
   }
 
   placePiece(column) {
@@ -186,7 +217,14 @@ class App extends React.Component {
       let index = newColumn.lastIndexOf(0);
       if (index !== -1) {
         newColumn[index] = this.state.turn;
-        this.setState({[column] : newColumn})
+        axios.put('/api/game', { params: 
+          {
+            "gameID": 1,
+            [column]: JSON.stringify(newColumn)
+          }
+        })
+          .then(({data})=> this.setState({ [column] : newColumn }))
+          .catch(err => console.log(err))
         this.chooseTurn()
       }
     }
@@ -194,6 +232,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(){
+    // console.log(JSON.stringify([this.state.col1, this.state.col2, this.state.col3, this.state.col4, this.state.col5, this.state.col6, this.state.col7]))
     if (!this.state.winner) {
       this.checkHorizontal()
       this.checkVertical()
@@ -204,7 +243,7 @@ class App extends React.Component {
       let wins = this.state[winnerKey];
       wins++
       this.setState({
-        addScore : false
+        addScore : false,
         [winnerKey] : wins
       })
     }
