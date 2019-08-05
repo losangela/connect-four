@@ -88,8 +88,10 @@ module.exports = {
   put: (req, res, next) => {
     console.log('editing')
     if (isDev) {
+      console.log('isdev')
       AWS.config.update(config.aws_local_config);
     } else {
+      console.log('isprod')
       AWS.config.update(config.aws_remote_config);
     }
     const { gameID, scoreR, scoreY, nameR, nameY, turn, board, col1, col2, col3, col4, col5, col6, col7 } = req.body.params;
