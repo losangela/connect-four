@@ -244,12 +244,22 @@ class App extends React.Component {
       this.checkLeftRightDiagonal()
     } else if (this.state.winner && this.state.addScore) {
       let winnerKey = this.state.winner + 'W';
+      let winnerKeyDB = 'score' + this.state.winner;
       let wins = this.state[winnerKey];
       wins++
-      this.setState({
+      console.log(winnerKeyDB, wins)
+      axios.put('/api/game', { params: 
+        {
+          "gameID": 1,
+          [winnerKeyDB]: wins
+        }
+      })
+      .then(this.setState({
         addScore : false,
         [winnerKey] : wins
-      })
+      }))
+      .catch(err => console.log(err))
+      
     }
   }
 
