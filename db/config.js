@@ -6,6 +6,6 @@ module.exports = {
     },
     aws_remote_config: {
 
-        region: 'us-east-1'
+        region: 'us-east-2'
     }
   };
