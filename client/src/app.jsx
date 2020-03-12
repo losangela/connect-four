@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -163,20 +162,7 @@ class App extends React.Component {
   resetBoard () {
     let empty = [0, 0, 0, 0, 0, 0];
     let jsonEmpty = JSON.stringify(empty)
-    axios.put('/api/game', { params: 
-      {
-        "gameID": 1,
-        col1: jsonEmpty,
-        col2: jsonEmpty,
-        col3: jsonEmpty,
-        col4: jsonEmpty,
-        col5: jsonEmpty,
-        col6: jsonEmpty,
-        col7: jsonEmpty,
-        turn: 'R'
-      }
-    })
-      .then(({data})=> this.setState({ 
+    this.setState({ 
         col1: empty,
         col2: empty,
         col3: empty,
@@ -185,8 +171,7 @@ class App extends React.Component {
         col6: empty,
         col7: empty,
         winner: null
-     }))
-      .catch(err => console.log(err))
+     })
   }
 
   changeValue(color) {
@@ -196,20 +181,7 @@ class App extends React.Component {
     }
     let key = "name" + color[0];
     let value = person.slice(0,12);
-    // this.setState({[color[0]]: person.slice(0,12)})
-    axios.put('/api/game', { params: 
-      {
-        "gameID": 1,
-        // "scoreR": 0,
-        // "scoreY": 0,
-        [key]: value
-        // "turn": "R",
-        // "board": "[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]"
-      
-      }
-    })
-      .then(({data})=> this.setState({ R: data.nameR, Y: data.nameY }))
-      .catch(err => console.log(err))
+    this.setState({[color[0]]: person.slice(0,12)})
   }
 
   placePiece(column) {
@@ -219,17 +191,7 @@ class App extends React.Component {
       if (index !== -1) {
         newColumn[index] = this.state.turn;
         let newTurn = this.state.turn === 'R' ? 'Y' : 'R'
-        
-        axios.put('/api/game', { params: 
-          {
-            "gameID": 1,
-            [column]: JSON.stringify(newColumn),
-            turn: newTurn
-          }
-        })
-          .then(({data})=> this.setState({ [column] : newColumn , turn: newTurn}))
-          .catch(err => console.log(err))
-        // this.chooseTurn()
+        this.setState({ [column] : newColumn , turn: newTurn})
       }
     }
 
@@ -248,17 +210,10 @@ class App extends React.Component {
       let wins = this.state[winnerKey];
       wins++
       console.log(winnerKeyDB, wins)
-      axios.put('/api/game', { params: 
-        {
-          "gameID": 1,
-          [winnerKeyDB]: wins
-        }
-      })
-      .then(this.setState({
+      this.setState({
         addScore : false,
         [winnerKey] : wins
-      }))
-      .catch(err => console.log(err))
+      })
       
     }
   }
