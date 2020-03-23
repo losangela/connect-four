@@ -7,4 +7,4 @@ app
   .use(express.json())
   .use(express.static('./client/dist'))
   .use('/api', router)
-  .listen(port, () => console.log(`Server connected to port: ${port}!`));
+  .listen(port, () => console.log('Server connected to port:', port));

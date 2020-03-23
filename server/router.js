@@ -6,6 +6,13 @@ router
     .get(controllers.getRooms)
     .post(controllers.newRoom)
     .put(controllers.editRoom)
-    .delete(controllers.deleteRoom)
+    .delete(controllers.deleteRoom);
 
-  module.exports = router;
+router
+  .route('/player')
+    .get(controllers.getPlayers)
+    .post(controllers.newPlayer)
+    .put(controllers.editPlayer)
+    .delete(controllers.deletePlayer);
+
+module.exports = router;

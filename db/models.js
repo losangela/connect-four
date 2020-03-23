@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const db = require('./index');
 
 const playerSchema = mongoose.Schema({
+  socketId: String,
   name: String,
   win: Number,
   lose: Number
