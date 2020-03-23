@@ -62,3 +62,9 @@
   border: 2px solid #adadad;
   margin: 2px;
 }
+
+.room-view-container {
+  border: 1px solid red;
+  width: 200px;
+  height: 200px;
+}

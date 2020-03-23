@@ -11,10 +11,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "react-build": "webpack -p --watch",
     "preview": "webpack-dev-server --open --mode development",
-    "building": "webpack --mode production",
-    "start": "webpack -p --progress --profile --colors --mode production && NODE_ENV=production node server",
+    "build": "webpack --mode production",
     "server": "nodemon server"
   },
   "engine": {

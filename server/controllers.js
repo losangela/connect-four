@@ -2,6 +2,7 @@ const { Player, Room } = require('../db/models');
 
 module.exports = {
   getRooms: (req, res) => {
+    console.log('getting rooms')
     Room.find((err, doc) => {
       err? 
         res.status(404).send('error grabbing rooms') :
