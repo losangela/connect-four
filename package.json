@@ -12,6 +12,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "react-build": "webpack -p --watch",
+    "preview": "webpack-dev-server --open --mode development",
+    "building": "webpack --mode production",
     "start": "webpack -p --progress --profile --colors --mode production && NODE_ENV=production node server",
     "server": "nodemon server"
   },
@@ -36,6 +38,7 @@
     "babel-loader": "^8.0.6",
     "nodemon": "^2.0.2",
     "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
