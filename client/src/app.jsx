@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import io from "socket.io-client";
+
+const socket = io('http://localhost:3000', {
+  transports: ["websocket", "polling"]
+});
 
 class App extends React.Component {
   constructor(props) {
@@ -30,6 +35,8 @@ class App extends React.Component {
     this.resetBoard = this.resetBoard.bind(this);
     this.changeValue = this.changeValue.bind(this);
   }
+
+
 
   chooseTurn() {
     if (this.state.turn === 'R') {
@@ -221,6 +228,10 @@ class App extends React.Component {
 
 
   render() {
+    socket.on("connect", () => { // client connects
+      socket.emit("test");
+    });
+    
     let columns = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7']
     return (
       <div>
