@@ -16,10 +16,10 @@ const App = () => {
 
   useEffect(() => {
     socket.on("connect", () => { // client connects
-      socket.emit("new user");
-      axios.post('/api/player', { name: username, socketId: socket.id })
-        .then(({data}) => setUser(data))
-        .catch(err => console.log(err))
+      socket.emit("new user", username);
+      // axios.post('/api/player', { name: username, socketId: socket.id })
+      //   .then(({data}) => setUser(data))
+      //   .catch(err => console.log(err))
     });
   }, [])
 
@@ -30,6 +30,7 @@ const App = () => {
 
   const switchRoom = room => {
     setWhichRoom(room)
+    socket.emit('location', room)
   }
 
   return (
