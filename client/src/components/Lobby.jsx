@@ -8,7 +8,7 @@ const Lobby = ({switchRoom}) => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/room')
+    axios.get('/api/lobby')
       .then(({data}) => setRooms(data))
       .catch(err => console.log(err))
   }, [])

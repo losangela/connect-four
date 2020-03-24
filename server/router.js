@@ -3,10 +3,14 @@ const router = require('express').Router();
 
 router
   .route('/room')
-    .get(controllers.getRooms)
+    .get(controllers.getRoom)
     .post(controllers.newRoom)
     .put(controllers.editRoom)
     .delete(controllers.deleteRoom);
+
+router
+  .route('/lobby')
+    .get(controllers.getRooms);
 
 router
   .route('/player')

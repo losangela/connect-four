@@ -2,8 +2,17 @@ const { Player, Room } = require('../db/models');
 
 module.exports = {
   getRooms: (req, res) => {
-    console.log('getting rooms')
-    Room.find((err, doc) => {
+    console.log('getting multiple rooms')
+    Room.find(null, 'queue id playerRed playerYellow isPlaying', (err, doc) => {
+      err? 
+        res.status(404).send('error grabbing rooms') :
+        res.status(200).send(doc)
+    })
+  },
+  getRoom: (req, res) => {
+    console.log('getting single room')
+    const { id } = req.query;
+    Room.find({ id }, (err, doc) => {
       err? 
         res.status(404).send('error grabbing rooms') :
         res.status(200).send(doc)
