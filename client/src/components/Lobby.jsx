@@ -4,19 +4,17 @@ import RoomView from './RoomView';
 
 
 
-const Lobby = ({switchRoom}) => {
-  const [rooms, setRooms] = useState([]);
+const Lobby = ({switchRoom, loadRooms, allRooms}) => {
+  // const [rooms, setRooms] = useState(allRooms);
 
   useEffect(() => {
-    axios.get('/api/lobby')
-      .then(({data}) => setRooms(data))
-      .catch(err => console.log(err))
+    // setRooms(allRooms)
   }, [])
 
   return (
     <div className="lobby-container">
       Check out all these rooms!
-      {rooms.map(room => (<RoomView key={room.id} room={room} switchRoom={switchRoom}/>))}
+      {allRooms.length? allRooms.map(room => (<RoomView key={room.id} room={room} switchRoom={switchRoom}/>)): "loading rooms..."}
     </div>
   )
 }

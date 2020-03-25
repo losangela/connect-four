@@ -1,5 +1,4 @@
-
-const socketio = require('socket.io')
+const socketio = require('socket.io');
 
 class Room {
   constructor(id) {
@@ -57,42 +56,49 @@ module.exports.listen = (app) => {
   users = io.of('/')
   users.on('connection', socket => {
   
-  socket.on('new user', (name) => {
-    allPlayers[socket.id] = new Player(name, socket.id)
-    console.log(1, '====new user hi!====', name, socket.id)
-    io.emit('ping')
-  })
+    socket.on('new user', (name) => {
+      allPlayers[socket.id] = new Player(name, socket.id)
+      console.log(1, '====new user hi!====', name, socket.id)
+      io.emit('all users', allPlayers)
+    })
 
-  socket.on('location', loc => {
-    if (allPlayers[socket.id]) {
-      if (loc === 'lobby') { // removes player from room if player returns to lobby
-        if (allPlayers[socket.id].location) {
-          rooms[allPlayers[socket.id].location].removePlayer(socket.id);
+    socket.on('load all rooms', () => {
+      console.log('loading all rooms')
+      io.emit('all rooms', rooms)
+    })
+
+    socket.on('location', loc => {
+      if (allPlayers[socket.id]) {
+        if (loc === 'lobby') { // removes player from room if player returns to lobby
+          if (allPlayers[socket.id].location) {
+            rooms[allPlayers[socket.id].location].removePlayer(socket.id);
+          }
+          allPlayers[socket.id].location = loc;
+        } else { // adds player to room
+          allPlayers[socket.id].location = loc;
+          rooms[loc].addPlayer(allPlayers[socket.id]);
         }
-        allPlayers[socket.id].location = loc;
-      } else { // adds player to room
-        allPlayers[socket.id].location = loc;
-        rooms[loc].addPlayer(allPlayers[socket.id]);
+      } else {
+        console.log('bad connection. could not find user in mem', socket.id)
       }
-    } else {
-      console.log('bad connection. could not find user in mem', socket.id)
-    }
+    })
+
+    socket.on('disconnect', () => {
+      console.log(0, '====bye bye bye====', socket.id)
+      if (allPlayers[socket.id]) {
+        let loc = allPlayers[socket.id].location;
+        if (loc !== 'lobby') { // removes player from room if not in lobby
+          rooms[loc].removePlayer(socket.id)
+        }
+        delete allPlayers[socket.id]
+      } else {
+        console.log('could not find user in mem')
+      }
+    //   axios.delete('http://localhost:3000/api/player', { params: { socketId: socket.id }})
+    //     .catch(err => console.log(err))
+    })
   })
 
-  socket.on('disconnect', () => {
-    console.log(0, '====bye bye bye====', socket.id)
-    if (allPlayers[socket.id]) {
-      let loc = allPlayers[socket.id].location;
-      if (loc !== 'lobby') { // removes player from room if not in lobby
-        rooms[loc].removePlayer(socket.id)
-      }
-      delete allPlayers[socket.id]
-    } else {
-      console.log('could not find user in mem')
-    }
-  //   axios.delete('http://localhost:3000/api/player', { params: { socketId: socket.id }})
-  //     .catch(err => console.log(err))
-  })
-})
   return io
+
 }

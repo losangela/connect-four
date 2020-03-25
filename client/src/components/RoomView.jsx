@@ -5,7 +5,7 @@ const RoomView = ({room, switchRoom}) => {
   return (
     <div className="room-view-container">
       <h3>Room # {room.id}</h3>
-      {room.queue.length} players waiting in line. <br />
+      {room.players.length} players waiting in line. <br />
       Red: {room.playerRed ? room.playerRed.name : "none"}<br/>
       Yellow: {room.playerYellow? room.playerYellow.name : "none"}<br/>
       {room.isPlaying ? "Game Started!" : "Waiting to start"}

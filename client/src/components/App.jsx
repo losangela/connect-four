@@ -11,19 +11,27 @@ const socket = io('http://localhost:3000', {
 const username = prompt("What is your name?");
 
 const App = () => {
-  const [user, setUser] = useState({})
-  const [whichRoom, setWhichRoom] = useState('lobby')
+  const [user, setUser] = useState({});
+  const [allUsers, setAllUsers] = useState([]);
+  const [whichRoom, setWhichRoom] = useState('lobby');
+  const [allRooms, setAllRooms] = useState([])
 
   useEffect(() => {
     socket.on("connect", () => { // client connects
       socket.emit("new user", username);
+      loadAllRooms();
       // axios.post('/api/player', { name: username, socketId: socket.id })
       //   .then(({data}) => setUser(data))
       //   .catch(err => console.log(err))
     });
 
-    socket.on("ping", () => {
-      console.log('pong')
+    socket.on('all users', users => {
+      setUser(users[socket.id])
+      setAllUsers(Object.values(users))
+    })
+
+    socket.on('all rooms', rooms => {
+      setAllRooms(Object.values(rooms))
     })
   }, [])
 
@@ -32,10 +40,14 @@ const App = () => {
     socket.emit('location', room)
   }
 
+  const loadAllRooms = () => {
+    socket.emit('load all rooms')
+  }
+
   return (
     <div className="app-container">
-      Welcome, {user.name}! You have {user.win} wins and {user.lose} loses.
-      {whichRoom === 'lobby' ? <Lobby switchRoom={switchRoom} /> : <RoomFull id={whichRoom} switchRoom={switchRoom} /> }
+      Welcome, {user.name}! You have {user.wins} wins and {user.loses} loses. You are currently at {user.location}
+      {whichRoom === 'lobby' ? <Lobby switchRoom={switchRoom} allRooms={allRooms} loadRooms={loadAllRooms}/> : <RoomFull id={whichRoom} switchRoom={switchRoom} /> }
 
     </div>
   )
