@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import io from "socket.io-client";
-// import axios from 'axios';
 import Lobby from './Lobby';
 import RoomFull from './RoomFull';
 
@@ -20,9 +19,6 @@ const App = () => {
     socket.on("connect", () => { // client connects
       socket.emit("new user", username);
       loadAllRooms();
-      // axios.post('/api/player', { name: username, socketId: socket.id })
-      //   .then(({data}) => setUser(data))
-      //   .catch(err => console.log(err))
     });
 
     socket.on('all users', users => {
@@ -40,14 +36,26 @@ const App = () => {
     socket.emit('location', room)
   }
 
+  const gameController = {
+    selectColor: (room, color) => {
+      socket.emit('select color', room, color)
+    },
+    removeColor: (room, color) => {
+      socket.emit('remove color', room, color)
+    }
+  }
+
   const loadAllRooms = () => {
     socket.emit('load all rooms')
   }
 
   return (
     <div className="app-container">
-      Welcome, {user.name}! You have {user.wins} wins and {user.loses} loses. You are currently at {user.location}
-      {whichRoom === 'lobby' ? <Lobby switchRoom={switchRoom} allRooms={allRooms} loadRooms={loadAllRooms}/> : <RoomFull roomData={allRooms[whichRoom - 1]} switchRoom={switchRoom} /> }
+      Welcome, {user.name}! You have {user.wins} wins and {user.loses} loses. You are currently at {user.location}.
+      { whichRoom === 'lobby' ?
+        <Lobby switchRoom={switchRoom} allRooms={allRooms} loadRooms={loadAllRooms}/> :
+        <RoomFull roomData={allRooms[whichRoom - 1]} switchRoom={switchRoom} c={gameController}/>
+      }
 
     </div>
   )

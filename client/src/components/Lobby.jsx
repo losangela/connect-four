@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import RoomView from './RoomView';
 
-
-
 const Lobby = ({switchRoom, allRooms}) => {
-  // const [rooms, setRooms] = useState(allRooms);
-
-  useEffect(() => {
-    
-  }, [])
 
   return (
     <div className="lobby-container">

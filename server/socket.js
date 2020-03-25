@@ -30,6 +30,17 @@ class Room {
       }
     }
   }
+  selectColor(color, socketId) {
+    if (allPlayers[socketId].location === this.id) {
+      console.log(allPlayers[socketId].name, 'wants to be', color)
+      this['player' + color] = allPlayers[socketId]
+    }
+  }
+  removeColor(color, socketId) {
+    if (allPlayers[socketId].location === this.id && this['player' + color] === allPlayers[socketId]) {
+      console.log('lets remove ya')
+    }
+  }
 };
 
 class Player {
@@ -60,6 +71,16 @@ module.exports.listen = (app) => {
       allPlayers[socket.id] = new Player(name, socket.id)
       console.log(1, '====new user hi!====', name, socket.id)
       io.emit('all users', allPlayers)
+    })
+
+    socket.on('select color', (roomNum, color) => {
+      rooms[roomNum].selectColor(color, socket.id)
+      io.emit('all rooms', rooms)
+    })
+
+    socket.on('remove color', (roomNum, color) => {
+      rooms[roomNum].removeColor(color, socket.id)
+      io.emit('all rooms', rooms)
     })
 
     socket.on('load all rooms', () => {
@@ -95,8 +116,7 @@ module.exports.listen = (app) => {
       } else {
         console.log('could not find user in mem')
       }
-    //   axios.delete('http://localhost:3000/api/player', { params: { socketId: socket.id }})
-    //     .catch(err => console.log(err))
+      io.emit('all rooms', rooms)
     })
   })
 

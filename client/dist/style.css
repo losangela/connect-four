@@ -24,6 +24,10 @@
   }
 }
 
+body {
+  font-family: Helvetica;
+  font-size: 12pt;
+}
 .slideInDown {
   -webkit-animation-name: slideInDown;
   animation-name: slideInDown;
@@ -53,6 +57,13 @@
   margin: 2px;
 }
 
+.users-container {
+  border: 1px solid green;
+}
+.one-user {
+  border:1px solid blue;
+  width: 100px;
+}
 
 #blank {
   width: 80px;
