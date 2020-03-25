@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const RoomView = ({ id, switchRoom }) => {
   const [roomData, setRoomData] = useState({});
 
   useEffect(() => {
-    axios
-      .get('/api/room', { params: { id } })
-      .then(({data}) => {
-        setRoomData(data[0])
-      })
-      .catch(err => console.log(err))
+    
   }, []);
 
   if (roomData.id) {

@@ -38,6 +38,9 @@ const App = () => {
   const switchRoom = room => {
     setWhichRoom(room)
     socket.emit('location', room)
+    if (room === 'lobby') {
+      loadAllRooms()
+    }
   }
 
   const loadAllRooms = () => {

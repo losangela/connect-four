@@ -4,11 +4,11 @@ import RoomView from './RoomView';
 
 
 
-const Lobby = ({switchRoom, loadRooms, allRooms}) => {
+const Lobby = ({switchRoom, allRooms}) => {
   // const [rooms, setRooms] = useState(allRooms);
 
   useEffect(() => {
-    // setRooms(allRooms)
+    
   }, [])
 
   return (
