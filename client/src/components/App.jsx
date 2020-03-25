@@ -23,11 +23,6 @@ const App = () => {
     });
   }, [])
 
-  const clickFromLobby = e => {
-    e.preventDefault();
-    socket.emit('lobby')
-  }
-
   const switchRoom = room => {
     setWhichRoom(room)
     socket.emit('location', room)

@@ -52,17 +52,16 @@ const rooms = {
 
 module.exports = (socket) => {
   socket.on('new user', (name) => {
-    allPlayers[socket.id] = new Player (name, socket.id)
-    console.log(1, '====new user hi!====', socket.id)
-    console.log(allPlayers)
+    allPlayers[socket.id] = new Player(name, socket.id)
+    console.log(1, '====new user hi!====', name, socket.id)
   })
 
   socket.on('location', loc => {
     if (allPlayers[socket.id]) {
-      if (loc === 'lobby') {
+      if (loc === 'lobby' && allPlayers[socket.id].location) { // removes player from room if player returns to lobby
         rooms[allPlayers[socket.id].location].removePlayer(socket.id);
         allPlayers[socket.id].location = loc;
-      } else {
+      } else { // adds player to room
         allPlayers[socket.id].location = loc;
         rooms[loc].addPlayer(allPlayers[socket.id]);
       }
@@ -74,6 +73,10 @@ module.exports = (socket) => {
   socket.on('disconnect', () => {
     console.log(0, '====bye bye bye====', socket.id)
     if (allPlayers[socket.id]) {
+      let loc = allPlayers[socket.id].location;
+      if (loc !== 'lobby') { // removes player from room if not in lobby
+        rooms[loc].removePlayer(socket.id)
+      }
       delete allPlayers[socket.id]
     } else {
       console.log('could not find user in mem')
