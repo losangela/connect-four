@@ -37,11 +37,15 @@ const App = () => {
   }
 
   const gameController = {
+    socketId: socket.id,
     selectColor: (room, color) => {
       socket.emit('select color', room, color)
     },
     removeColor: (room, color) => {
       socket.emit('remove color', room, color)
+    },
+    startGame: room => {
+      socket.emit('start game', room)
     }
   }
 
