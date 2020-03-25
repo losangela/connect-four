@@ -23,6 +23,11 @@ class Room {
     this.players.push(player)
   }
   removePlayer(id) {
+    if (this.playerRed === allPlayers[id]) {
+      this.removeColor('Red', id)
+    } else if (this.playerYellow === allPlayers[id]) {
+      this.removeColor('Yellow', id)
+    }
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].socketId === id) {
         this.players.splice(i, 1)
@@ -33,12 +38,17 @@ class Room {
   selectColor(color, socketId) {
     if (allPlayers[socketId].location === this.id) {
       console.log(allPlayers[socketId].name, 'wants to be', color)
-      this['player' + color] = allPlayers[socketId]
+      if (color === 'Red' && this.playerYellow === allPlayers[socketId]) {
+        this.removeColor('Yellow', socketId)
+      } else if (color === 'Yellow' && this.playerRed === allPlayers[socketId]) {
+        this.removeColor('Red', socketId)
+      }
+      this['player' + color] = allPlayers[socketId];
     }
   }
   removeColor(color, socketId) {
     if (allPlayers[socketId].location === this.id && this['player' + color] === allPlayers[socketId]) {
-      console.log('lets remove ya')
+      this['player' + color] = null;
     }
   }
 };
