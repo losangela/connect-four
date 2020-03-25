@@ -63,14 +63,13 @@ module.exports.listen = (app) => {
     })
 
     socket.on('load all rooms', () => {
-      console.log('loading all rooms')
       io.emit('all rooms', rooms)
     })
 
     socket.on('location', loc => {
       if (allPlayers[socket.id]) {
         if (loc === 'lobby') { // removes player from room if player returns to lobby
-          if (allPlayers[socket.id].location) {
+          if (allPlayers[socket.id].location !== 'lobby') {
             rooms[allPlayers[socket.id].location].removePlayer(socket.id);
           }
           allPlayers[socket.id].location = loc;
@@ -78,6 +77,8 @@ module.exports.listen = (app) => {
           allPlayers[socket.id].location = loc;
           rooms[loc].addPlayer(allPlayers[socket.id]);
         }
+        io.emit('all users', allPlayers)
+        io.emit('all rooms', rooms)
       } else {
         console.log('bad connection. could not find user in mem', socket.id)
       }

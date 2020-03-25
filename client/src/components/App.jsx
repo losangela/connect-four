@@ -38,9 +38,6 @@ const App = () => {
   const switchRoom = room => {
     setWhichRoom(room)
     socket.emit('location', room)
-    if (room === 'lobby') {
-      loadAllRooms()
-    }
   }
 
   const loadAllRooms = () => {
@@ -50,7 +47,7 @@ const App = () => {
   return (
     <div className="app-container">
       Welcome, {user.name}! You have {user.wins} wins and {user.loses} loses. You are currently at {user.location}
-      {whichRoom === 'lobby' ? <Lobby switchRoom={switchRoom} allRooms={allRooms} loadRooms={loadAllRooms}/> : <RoomFull id={whichRoom} switchRoom={switchRoom} /> }
+      {whichRoom === 'lobby' ? <Lobby switchRoom={switchRoom} allRooms={allRooms} loadRooms={loadAllRooms}/> : <RoomFull roomData={allRooms[whichRoom - 1]} switchRoom={switchRoom} /> }
 
     </div>
   )
