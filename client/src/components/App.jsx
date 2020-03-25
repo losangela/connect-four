@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from "socket.io-client";
-import axios from 'axios';
+// import axios from 'axios';
 import Lobby from './Lobby';
 import RoomFull from './RoomFull';
 
@@ -21,6 +21,10 @@ const App = () => {
       //   .then(({data}) => setUser(data))
       //   .catch(err => console.log(err))
     });
+
+    socket.on("ping", () => {
+      console.log('pong')
+    })
   }, [])
 
   const switchRoom = room => {

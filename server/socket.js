@@ -1,4 +1,5 @@
-const axios = require('axios');
+
+const socketio = require('socket.io')
 
 class Room {
   constructor(id) {
@@ -50,16 +51,24 @@ const rooms = {
   4: new Room(4)
 }
 
-module.exports = (socket) => {
+
+module.exports.listen = (app) => {
+  io = socketio.listen(app)
+  users = io.of('/')
+  users.on('connection', socket => {
+  
   socket.on('new user', (name) => {
     allPlayers[socket.id] = new Player(name, socket.id)
     console.log(1, '====new user hi!====', name, socket.id)
+    io.emit('ping')
   })
 
   socket.on('location', loc => {
     if (allPlayers[socket.id]) {
-      if (loc === 'lobby' && allPlayers[socket.id].location) { // removes player from room if player returns to lobby
-        rooms[allPlayers[socket.id].location].removePlayer(socket.id);
+      if (loc === 'lobby') { // removes player from room if player returns to lobby
+        if (allPlayers[socket.id].location) {
+          rooms[allPlayers[socket.id].location].removePlayer(socket.id);
+        }
         allPlayers[socket.id].location = loc;
       } else { // adds player to room
         allPlayers[socket.id].location = loc;
@@ -84,5 +93,6 @@ module.exports = (socket) => {
   //   axios.delete('http://localhost:3000/api/player', { params: { socketId: socket.id }})
   //     .catch(err => console.log(err))
   })
-
+})
+  return io
 }
