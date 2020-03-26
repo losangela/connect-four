@@ -6,15 +6,15 @@ const Game = ({ roomData, c }) => {
 
   const column = (col, i) => {
     return (
-      <div id={col} onClick={() => c.clickCol(roomData.id, i)}>
+      <div id={col} onClick={() => c.clickCol(roomData.id - 1, i)}>
         {roomData.board[i].map((space, j) => {
           if (space === 0) {
             return (<div id="blank" key={j}></div>)
-            } if (space === 'R') {
-              return (<div id="red" key={j}></div>)
-            } if (space === 'Y') {
-              return (<div id="yellow" key={j}></div>)
-            } 
+          } if (space === 1) {
+            return (<div id="red" key={j}></div>)
+          } if (space === -1) {
+            return (<div id="yellow" key={j}></div>)
+          } 
         })}
       </div>
     )

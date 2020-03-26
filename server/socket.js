@@ -27,6 +27,13 @@ module.exports.listen = (app) => {
       io.emit('all rooms', rooms)
     })
 
+    socket.on('click column', (roomNum, colIndex) => {
+      console.log('place piece at', roomNum)
+      rooms[roomNum].placePiece(socket.id, colIndex)
+      console.log('clicking and runing place piece')
+      io.emit('all rooms', rooms)
+    })
+
     socket.on('load all rooms', () => {
       io.emit('all rooms', rooms)
     })

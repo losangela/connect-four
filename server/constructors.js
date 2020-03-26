@@ -20,6 +20,30 @@ class Room {
   addPlayer(player) {
     this.players.push(player)
   }
+  placePiece(socketId, colIndex) {
+    console.log(this.turn)
+    if (this.turn > 0 && this.playerRed.socketId === socketId) {
+      console.log('its red')
+      for (let i = 6; i >= 0; i--) {
+        console.log(i)
+        if (this.board[colIndex][i] === 0) {
+          this.board[colIndex][i] = 1;
+          this.turn = -1;
+          return
+        }
+      }
+    }
+    if (this.turn < 0 && this.playerYellow.socketId === socketId) {
+      console.log('its yellow')
+      for (let i = 6; i >= 0; i--) {
+        if (this.board[colIndex][i] === 0) {
+          this.board[colIndex][i] = -1;
+          this.turn = 1
+          return
+        }
+      }
+    }
+  }
   removePlayer(id) {
     if (this.playerRed === allPlayers[id]) {
       this.removeColor('Red', id) // removes player from playerRed
