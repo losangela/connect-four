@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Users from './Users'
+import Users from './Users';
+import Game from './Game';
 
 const RoomView = ({ roomData, switchRoom, c }) => {
 
@@ -23,7 +24,6 @@ const RoomView = ({ roomData, switchRoom, c }) => {
 
   const removeColor = (color) => {
     if (roomData['player' + color].socketId === c.socketId) {
-
       return (
         <button onClick={() => c.removeColor(roomData.id, color)}>X</button>
       )
@@ -36,7 +36,7 @@ const RoomView = ({ roomData, switchRoom, c }) => {
       Red: {roomData.playerRed ? <label>{roomData.playerRed.name}{removeColor('Red')}</label> : <button onClick={() => c.selectColor(roomData.id, 'Red')}>Be red</button>}<br />
       Yellow: {roomData.playerYellow? <label>{roomData.playerYellow.name}{removeColor('Yellow')}</label> : <button onClick={() => c.selectColor(roomData.id, 'Yellow')}>Be yellow</button>}< br />
       Players: <Users roomData={roomData}/><br />
-      {roomData.isPlaying? "Game started!" : "Waiting to start..."} <br />
+      {roomData.isPlaying? <Game roomData={roomData} c={c} /> : "Waiting to start..."} <br />
       {displayStart()} <br/>
       <button onClick={() => switchRoom('lobby')}>Back to lobby</button>
     </div>

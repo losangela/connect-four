@@ -46,6 +46,9 @@ const App = () => {
     },
     startGame: room => {
       socket.emit('start game', room)
+    },
+    clickCol: (room, colIndex) => {
+      console.log(`clicked ${colIndex} column at ${room}`)
     }
   }
 
