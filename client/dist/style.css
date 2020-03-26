@@ -28,12 +28,23 @@ body {
   font-family: Helvetica;
   font-size: 12pt;
 }
+
+button {
+  font-size: 12pt;
+  padding: 5px;
+}
 .slideInDown {
   -webkit-animation-name: slideInDown;
   animation-name: slideInDown;
 }
 
+#red-player {
+  background-color: red;
+}
 
+#yellow-player {
+  background-color: yellow;
+}
 
 #red {
   -webkit-animation-name: slideInDown;
