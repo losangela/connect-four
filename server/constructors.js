@@ -20,24 +20,79 @@ class Room {
   addPlayer(player) {
     this.players.push(player)
   }
+  checkWins() {
+    console.log('lets see if someone won')
+    const checkFour = (array) => {
+      let streak = 0;
+      let streakNum = 0;
+      for (let j = 0; j < array.length; j++){
+        let circle = array[j]
+          if (!circle) {
+            streak = 0;
+            streakNum = 0;
+          }
+        else if (circle && streak === 0) {
+          streak = circle;
+          streakNum = 1;
+        } else if (circle && circle === streak) {
+          streakNum++;
+          if (streakNum === 4) {
+            if (streak === 1) {
+              this.winner = this.playerRed
+              this.winner.wins++
+              this.playerYellow.loses++
+            } else if (streak === -1) {
+              this.winner = this.playerYellow
+              this.winner.wins++
+              this.playerRed.loses++
+            }
+            console.log('winner!!!')
+            return
+          }
+        } else if (circle && streak !== circle) {
+          streak = circle;
+          streakNum = 1;
+        }
+      }
+    }
+    const checkHorizontal = () => {
+      let arr = [];
+      for (let i = 0; i < 7; i++) {
+        for (let j = 0; j < 7; j++) {
+          arr[j] = this.board[j][i]
+        }
+        checkFour(arr)
+      }
+    }
+    const checkVertical = () => {
+      for (let i = 0; i < this.board.length; i++) {
+        checkFour(this.board[i])
+      }
+    }
+    const checkRightLeftDiagonal = () => {
+      
+    }
+    const checkLeftRightDiagonal = () => {
+
+    }
+    checkHorizontal()
+  }
   placePiece(socketId, colIndex) {
-    console.log(this.turn)
     if (this.turn > 0 && this.playerRed.socketId === socketId) {
-      console.log('its red')
       for (let i = 6; i >= 0; i--) {
-        console.log(i)
         if (this.board[colIndex][i] === 0) {
           this.board[colIndex][i] = 1;
+          this.checkWins();
           this.turn = -1;
           return
         }
       }
     }
     if (this.turn < 0 && this.playerYellow.socketId === socketId) {
-      console.log('its yellow')
       for (let i = 6; i >= 0; i--) {
         if (this.board[colIndex][i] === 0) {
           this.board[colIndex][i] = -1;
+          this.checkWins()
           this.turn = 1
           return
         }
@@ -69,6 +124,16 @@ class Room {
     }
   }
   startGame() {
+    this.board = [
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0]
+      ];
+    this.winner = null;
     this.isPlaying = true;
   }
   stopGame() {
@@ -80,6 +145,7 @@ class Room {
       this['player' + color] = null;
     }
   }
+
 };
 
 class Player {

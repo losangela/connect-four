@@ -48,6 +48,9 @@ const App = () => {
       socket.emit('start game', room)
     },
     clickCol: (room, colIndex) => {
+      if (allRooms[room].winner) {
+        return
+      }
       if (allRooms[room].turn > 0) { // red's turn
         if (allRooms[room].playerRed.socketId === socket.id) { // if client is Red
           socket.emit('click column', room + 1, colIndex)

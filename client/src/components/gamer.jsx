@@ -135,15 +135,15 @@ class App extends React.Component {
   }
 
   checkFour(array) {
-    let streak = '';
+    let streak = 0;
     let streakNum = 0;
     for (let j = 0; j < array.length; j++ ){
       let circle = array[j]
         if (!circle) {
-          streak = '';
+          streak = 0;
           streakNum = 0;
         }
-      else if (circle && streak === "") {
+      else if (circle && streak === 0) {
         streak = circle;
         streakNum = 1;
       } else if (circle && circle === streak) {
