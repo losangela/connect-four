@@ -69,13 +69,48 @@ class Room {
         checkFour(this.board[i])
       }
     }
-    const checkRightLeftDiagonal = () => {
-      
-    }
     const checkLeftRightDiagonal = () => {
-
+      const makeDiagonalAndCheck = (col, row) => {
+        let result = [];
+        while (col < 7 && row < 7) {
+          console.log(col, row)
+          result.push(this.board[col][row])
+          col++
+          row++
+        }
+        console.log(result)
+        checkFour(result)
+      }
+      makeDiagonalAndCheck(0, 3)
+      makeDiagonalAndCheck(0, 2)
+      makeDiagonalAndCheck(0, 1)
+      makeDiagonalAndCheck(0, 0)
+      makeDiagonalAndCheck(1, 0)
+      makeDiagonalAndCheck(2, 0)
+      makeDiagonalAndCheck(3, 0)
+    }
+    const checkRightLeftDiagonal = () => {
+      const makeDiagonalAndCheck = (col, row) => {
+        let result = [];
+        while (col >= 0 && row < 7) {
+          result.push(this.board[col][row])
+          col--
+          row++
+        }
+        checkFour(result)
+      }
+      makeDiagonalAndCheck(3, 0)
+      makeDiagonalAndCheck(4, 0)
+      makeDiagonalAndCheck(5, 0)
+      makeDiagonalAndCheck(6, 0)
+      makeDiagonalAndCheck(6, 1)
+      makeDiagonalAndCheck(6, 2)
+      makeDiagonalAndCheck(6, 3)
     }
     checkHorizontal()
+    checkVertical()
+    checkLeftRightDiagonal()
+    checkRightLeftDiagonal()
   }
   placePiece(socketId, colIndex) {
     if (this.turn > 0 && this.playerRed.socketId === socketId) {
