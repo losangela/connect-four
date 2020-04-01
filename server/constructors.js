@@ -21,7 +21,6 @@ class Room {
     this.players.push(player)
   }
   checkWins() {
-    console.log('lets see if someone won')
     const checkFour = (array) => {
       let streak = 0;
       let streakNum = 0;
@@ -73,12 +72,10 @@ class Room {
       const makeDiagonalAndCheck = (col, row) => {
         let result = [];
         while (col < 7 && row < 7) {
-          console.log(col, row)
           result.push(this.board[col][row])
           col++
           row++
         }
-        console.log(result)
         checkFour(result)
       }
       makeDiagonalAndCheck(0, 3)

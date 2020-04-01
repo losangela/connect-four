@@ -5,8 +5,10 @@ const Lobby = ({switchRoom, allRooms}) => {
 
   return (
     <div className="lobby-container">
-      Check out all these rooms!
-      {allRooms.length? allRooms.map(room => (<RoomView key={room.id} room={room} switchRoom={switchRoom}/>)): "loading rooms..."}
+      <h1>Game Lobby</h1>
+      <div className="lobby-rooms-container">
+        {allRooms.length? allRooms.map(room => (<RoomView key={room.id} room={room} switchRoom={switchRoom}/>)): "loading rooms..."}
+      </div>
     </div>
   )
 }

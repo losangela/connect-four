@@ -20,17 +20,31 @@ const Game = ({ roomData, c }) => {
     )
   }
 
-  return (
-    <div className="game-container">
-      <table>
-        <tr>
-          {columns.map((col, i) => (
-            <td>{column(col, i)}</td>
-          ))}
-        </tr>
-      </table>
-    </div>
-  )
+  if (roomData.isPlaying) {
+    return (
+      <div className="game-container">
+        <table>
+          <tr>
+            {columns.map((col, i) => (
+              <td>{column(col, i)}</td>
+            ))}
+          </tr>
+        </table>
+      </div>
+    )
+  } else {
+    return (
+      <div className="game-container-pending">
+        <table>
+          <tr>
+            {columns.map((col, i) => (
+              <td>{column(col, i)}</td>
+            ))}
+          </tr>
+        </table>
+      </div>
+    )
+  }
 }
 
 export default Game
