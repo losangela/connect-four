@@ -118,19 +118,39 @@ h1 {
   border-radius: 25px;
   border: 5px solid rgb(0, 87, 128);
   height: 90%;
+  min-width: 900px;
+}
+
+.flex {
+  display: flex;
+}
+
+.room-full-container {
+  background-color: rgb(28, 159, 182);
+  padding: 10px;
+  border-radius: 25px;
+  border: 5px solid rgb(0, 87, 128);
+  height: 90%;
+  min-width: 900px;
 }
 
 .users-container {
   width: 120px;
   padding: 10px;
-  background-color: red;
+  background-color: rgb(96, 211, 211);
   border-radius: 25px;
 }
+
 .one-user {
   padding: 10px;
   width: 100px;
-  background-color: pink;
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 25px;
+  margin-bottom: 10px;
+}
+
+.turn {
+  box-shadow: 5px 5px 5px rgb(255, 255, 255);
 }
 
 #blank {
@@ -143,10 +163,6 @@ h1 {
 }
 
 
-.lobby-rooms-container {
-  display: flex;
-}
-
 .room-view-container {
   margin: 5px;
   padding: 20px;
@@ -158,10 +174,16 @@ h1 {
   height: 200px;
 }
 
-.game-container-pending {
+.game-container {
+  margin-left: 20px;
+  border-radius: 25px;
   padding: 10px;
   text-align: center;
   width: 450px;
+  background-color: blue;
+}
+
+.pending {
   pointer-events:none;
   background-color: gray;
 }

@@ -34,7 +34,7 @@ const Game = ({ roomData, c }) => {
     )
   } else {
     return (
-      <div className="game-container-pending">
+      <div className="game-container pending">
         <table>
           <tr>
             {columns.map((col, i) => (

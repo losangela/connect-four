@@ -35,8 +35,10 @@ const RoomView = ({ roomData, switchRoom, c }) => {
       <h1>Room # {roomData.id}</h1>
       Red: {roomData.playerRed ? <label>{roomData.playerRed.name}{removeColor('Red')}</label> : <button onClick={() => c.selectColor(roomData.id, 'Red')}>Be red</button>}<br />
       Yellow: {roomData.playerYellow? <label>{roomData.playerYellow.name}{removeColor('Yellow')}</label> : <button onClick={() => c.selectColor(roomData.id, 'Yellow')}>Be yellow</button>}< br />
-      Players: <Users roomData={roomData}/><br />
-      <Game roomData={roomData} c={c} /> <br />
+      <div className="flex">
+        <Users roomData={roomData}/>
+        <Game roomData={roomData} c={c} />
+      </div>
       {roomData.winner? <label>{roomData.winner.name} wins!!!<button onClick={() => c.startGame(roomData.id)}>Restart game</button></label> : ""}
       {displayStart()} <br/>
       <button onClick={() => switchRoom('lobby')}>Back to lobby</button>
