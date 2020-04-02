@@ -156,17 +156,19 @@ class Room {
     }
   }
   startGame() {
-    this.board = [
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0],
-      [0,0,0,0,0,0,0]
-      ];
-    this.winner = null;
-    this.isPlaying = true;
+    if (this.playerRed && this.playerYellow) {
+      this.board = [
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0]
+        ];
+      this.winner = null;
+      this.isPlaying = true;
+    }
   }
   stopGame() {
     this.isPlaying = false;
