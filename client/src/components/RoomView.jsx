@@ -9,7 +9,7 @@ const RoomView = ({room, switchRoom}) => {
       Red: {room.playerRed ? room.playerRed.name : "none"}<br/>
       Yellow: {room.playerYellow? room.playerYellow.name : "none"}<br/>
       {room.isPlaying ? "Game Started!" : "Waiting to start"} <br/>
-      <button onClick={() => switchRoom(room.id)}>Join room</button>
+      <button id="join" onClick={() => switchRoom(room.id)}>Join room</button>
     </div>
   )
 }

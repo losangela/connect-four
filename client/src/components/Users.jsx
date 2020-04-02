@@ -3,6 +3,7 @@ import React from 'react';
 const Users = ({roomData}) => {
   return (
     <div className="users-container">
+      <h3>Players</h3>
       {roomData.players.map(user => {
         if (roomData.playerRed && user.socketId === roomData.playerRed.socketId) {
           return (
