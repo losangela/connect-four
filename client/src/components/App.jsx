@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Lobby from './Lobby';
 import RoomFull from './RoomFull';
 
-const socket = io('http://localhost:3000', {
+const socket = io('https://c0nnect4.herokuapp.com/', {
   transports: ["websocket", "polling"]
 });
 
@@ -69,7 +69,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      Welcome, {user.name}! You have {user.wins} wins and {user.loses} loses. You are currently at {user.location}.
+      {/* Welcome, {user.name}! You have {user.wins} wins and {user.loses} loses. You are currently at {user.location}. */}
       { whichRoom === 'lobby' ?
         <Lobby switchRoom={switchRoom} allRooms={allRooms} loadRooms={loadAllRooms}/> :
         <RoomFull roomData={allRooms[whichRoom - 1]} switchRoom={switchRoom} c={gameController}/>
