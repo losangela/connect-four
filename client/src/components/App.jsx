@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Lobby from './Lobby';
 import RoomFull from './RoomFull';
 
-const socket = io('https://c0nnect4.herokuapp.com/', {
+const socket = io('http://localhost:3000', {
   transports: ["websocket", "polling"]
 });
 

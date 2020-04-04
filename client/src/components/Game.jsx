@@ -11,9 +11,9 @@ const Game = ({ roomData, c }) => {
           if (space === 0) {
             return (<div id="blank" key={j}></div>)
           } if (space === 1) {
-            return (<div id="red" key={j}></div>)
+            return (<div className="animated flash faster" id="red" key={j}></div>)
           } if (space === -1) {
-            return (<div id="yellow" key={j}></div>)
+            return (<div className="animated flash faster" id="yellow" key={j}></div>)
           } 
         })}
       </div>

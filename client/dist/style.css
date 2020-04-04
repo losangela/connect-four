@@ -1,28 +1,4 @@
-@-webkit-keyframes slideInDown {
-  from {
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-    visibility: visible;
-  }
 
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes slideInDown {
-  from {
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
 
 body {
   font-family: Helvetica;
@@ -74,8 +50,6 @@ body {
 }
 
 #red {
-  -webkit-animation-name: slideInDown;
-  animation-name: slideInDown;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -85,8 +59,6 @@ body {
 }
 
 #yellow {
-  -webkit-animation-name: slideInDown;
-  animation-name: slideInDown;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -180,6 +152,7 @@ h1 {
   padding: 10px;
   text-align: center;
   width: 450px;
+  height: 400px;
   background-color: blue;
 }
 
